@@ -154,7 +154,8 @@ class _ButtonState extends State<Button> with TickerProviderStateMixin {
                                               widget.text?.data ?? '',
                                               style:
                                                   widget.text?.style?.copyWith(
-                                                color: Color(0xFFB3B3B3),
+                                                color:
+                                                    _colorTweenAnimation.value,
                                               ),
                                             ),
                                       // child: Opacity(
