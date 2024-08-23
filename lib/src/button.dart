@@ -1,5 +1,3 @@
-import 'dart:math' show pow;
-
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
@@ -147,35 +145,10 @@ class _ButtonState extends State<Button> with TickerProviderStateMixin {
                               Container(
                                 child: Container(
                                   child: Align(
-                                      alignment: Alignment.centerRight,
+                                      alignment: Alignment.center,
                                       widthFactor: curveValue,
                                       child: Container(
-                                        child: Opacity(
-                                            opacity: _expanded
-                                                ? pow(expandController.value,
-                                                    13) as double
-                                                : expandController
-                                                    .drive(CurveTween(
-                                                        curve: Curves.easeIn))
-                                                    .value,
-                                            child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: widget.gap! +
-                                                      8 -
-                                                      (8 *
-                                                          expandController
-                                                              .drive(CurveTween(
-                                                                  curve: Curves
-                                                                      .easeOutSine))
-                                                              .value),
-                                                  right: 8 *
-                                                      expandController
-                                                          .drive(CurveTween(
-                                                              curve: Curves
-                                                                  .easeOutSine))
-                                                          .value),
-                                              child: widget.text,
-                                            )),
+                                        child: widget.text,
                                       )),
                                 ),
                               ),
