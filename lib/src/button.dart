@@ -84,10 +84,10 @@ class _ButtonState extends State<Button> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    var curveValue = expandController
-        .drive(CurveTween(
-            curve: _expanded ? widget.curve! : widget.curve!.flipped))
-        .value;
+    // var curveValue = expandController
+    //     .drive(CurveTween(
+    //         curve: _expanded ? widget.curve! : widget.curve!.flipped))
+    //     .value;
     var _colorTween =
         ColorTween(begin: widget.iconColor, end: widget.iconActiveColor);
     var _colorTweenAnimation = _colorTween.animate(CurvedAnimation(
@@ -133,6 +133,7 @@ class _ButtonState extends State<Button> with TickerProviderStateMixin {
               borderRadius: widget.borderRadius,
             ),
             child: FittedBox(
+              alignment: Alignment.center,
               fit: BoxFit.fitHeight,
               child: Builder(
                 builder: (_) {
@@ -140,50 +141,27 @@ class _ButtonState extends State<Button> with TickerProviderStateMixin {
                     return Stack(
                       children: [
                         if (widget.text!.data != '')
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Opacity(
-                                  opacity: 0,
-                                  child: icon,
-                                ),
-                                Container(
+                          Column(
+                            children: [
+                              icon,
+                              Container(
+                                child: Container(
                                   child: Container(
-                                    child: Align(
-                                        alignment: Alignment.centerRight,
-                                        widthFactor: curveValue,
-                                        child: Container(
-                                          child: Opacity(
-                                              opacity: _expanded
-                                                  ? pow(expandController.value,
-                                                      13) as double
-                                                  : expandController
-                                                      .drive(CurveTween(
-                                                          curve: Curves.easeIn))
-                                                      .value,
-                                              child: Padding(
-                                                padding: EdgeInsets.only(
-                                                    left: widget.gap! +
-                                                        8 -
-                                                        (8 *
-                                                            expandController
-                                                                .drive(CurveTween(
-                                                                    curve: Curves
-                                                                        .easeOutSine))
-                                                                .value),
-                                                    right: 8 *
-                                                        expandController
-                                                            .drive(CurveTween(
-                                                                curve: Curves
-                                                                    .easeOutSine))
-                                                            .value),
-                                                child: widget.text,
-                                              )),
-                                        )),
+                                    child: Opacity(
+                                      opacity: _expanded
+                                          ? pow(expandController.value, 13)
+                                              as double
+                                          : expandController
+                                              .drive(CurveTween(
+                                                  curve: Curves.easeIn))
+                                              .value,
+                                      child: widget.text,
+                                    ),
                                   ),
                                 ),
-                              ]),
-                        Align(alignment: Alignment.centerLeft, child: icon),
+                              ),
+                            ],
+                          ),
                       ],
                     );
                   } else if (widget.style == GnavStyle.oldSchool) {
