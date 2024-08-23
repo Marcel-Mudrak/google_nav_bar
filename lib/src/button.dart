@@ -100,7 +100,8 @@ class _ButtonState extends State<Button> with TickerProviderStateMixin {
 
     Widget icon = widget.leading ??
         Icon(widget.icon,
-            color: _colorTweenAnimation.value, size: widget.iconSize);
+            color: _expanded ? Color(0xFFB3B3B3) : _colorTweenAnimation.value,
+            size: widget.iconSize);
 
     return Material(
       type: MaterialType.transparency,
@@ -145,11 +146,30 @@ class _ButtonState extends State<Button> with TickerProviderStateMixin {
                               Container(
                                 child: Container(
                                   child: Align(
-                                      alignment: Alignment.center,
-                                      widthFactor: curveValue,
-                                      child: Container(
-                                        child: widget.text,
-                                      )),
+                                    alignment: Alignment.center,
+                                    widthFactor: curveValue,
+                                    child: Container(
+                                      child: !_expanded
+                                          ? widget.text
+                                          : Text(
+                                              widget.text?.data ?? '',
+                                              style:
+                                                  widget.text?.style?.copyWith(
+                                                color: Color(0xFFB3B3B3),
+                                              ),
+                                            ),
+                                      // child: Opacity(
+                                      //   opacity: _expanded
+                                      //       ? pow(expandController.value, 13)
+                                      //           as double
+                                      //       : expandController
+                                      //           .drive(CurveTween(
+                                      //               curve: Curves.easeIn))
+                                      //           .value,
+                                      //   child: widget.text,
+                                      // ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
