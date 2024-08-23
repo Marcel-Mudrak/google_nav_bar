@@ -100,8 +100,7 @@ class _ButtonState extends State<Button> with TickerProviderStateMixin {
 
     Widget icon = widget.leading ??
         Icon(widget.icon,
-            color: _expanded ? Color(0xFFB3B3B3) : _colorTweenAnimation.value,
-            size: widget.iconSize);
+            color: _colorTweenAnimation.value, size: widget.iconSize);
 
     return Material(
       type: MaterialType.transparency,
