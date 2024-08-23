@@ -84,10 +84,10 @@ class _ButtonState extends State<Button> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    // var curveValue = expandController
-    //     .drive(CurveTween(
-    //         curve: _expanded ? widget.curve! : widget.curve!.flipped))
-    //     .value;
+    var curveValue = expandController
+        .drive(CurveTween(
+            curve: _expanded ? widget.curve! : widget.curve!.flipped))
+        .value;
     var _colorTween =
         ColorTween(begin: widget.iconColor, end: widget.iconActiveColor);
     var _colorTweenAnimation = _colorTween.animate(CurvedAnimation(
@@ -133,7 +133,6 @@ class _ButtonState extends State<Button> with TickerProviderStateMixin {
               borderRadius: widget.borderRadius,
             ),
             child: FittedBox(
-              alignment: Alignment.center,
               fit: BoxFit.fitHeight,
               child: Builder(
                 builder: (_) {
@@ -142,22 +141,42 @@ class _ButtonState extends State<Button> with TickerProviderStateMixin {
                       children: [
                         if (widget.text!.data != '')
                           Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               icon,
                               Container(
                                 child: Container(
-                                  child: Container(
-                                    child: Opacity(
-                                      opacity: _expanded
-                                          ? pow(expandController.value, 13)
-                                              as double
-                                          : expandController
-                                              .drive(CurveTween(
-                                                  curve: Curves.easeIn))
-                                              .value,
-                                      child: widget.text,
-                                    ),
-                                  ),
+                                  child: Align(
+                                      alignment: Alignment.centerRight,
+                                      widthFactor: curveValue,
+                                      child: Container(
+                                        child: Opacity(
+                                            opacity: _expanded
+                                                ? pow(expandController.value,
+                                                    13) as double
+                                                : expandController
+                                                    .drive(CurveTween(
+                                                        curve: Curves.easeIn))
+                                                    .value,
+                                            child: Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: widget.gap! +
+                                                      8 -
+                                                      (8 *
+                                                          expandController
+                                                              .drive(CurveTween(
+                                                                  curve: Curves
+                                                                      .easeOutSine))
+                                                              .value),
+                                                  right: 8 *
+                                                      expandController
+                                                          .drive(CurveTween(
+                                                              curve: Curves
+                                                                  .easeOutSine))
+                                                          .value),
+                                              child: widget.text,
+                                            )),
+                                      )),
                                 ),
                               ),
                             ],
